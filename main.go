@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/gocolly/colly"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/template/django/v3"
 	"github.com/harunalbayrak/go-finance/app/db"
@@ -14,27 +14,10 @@ import (
 	"github.com/joho/godotenv"
 )
 
-func GetStocks() ([]models.Stock, error) {
-	stocks := make([]models.Stock, 0)
-
-	c := colly.NewCollector(
-		colly.AllowedDomains("uzmanpara.milliyet.com.tr"),
-	)
-
-	c.OnHTML("tr", func(e *colly.HTMLElement) {
-		code := e.ChildText("b")
-		if code != "" {
-			stocks = append(stocks, models.Stock{Code: code})
-		}
-	})
-
-	c.Visit("https://uzmanpara.milliyet.com.tr/canli-borsa/bist-TUM-hisseleri/")
-
-	return stocks, nil
-}
-
 func main() {
-	godotenv.Load(".env")
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal("env loading error", err)
+	}
 
 	// spy, _ := quote.NewQuoteFromYahoo("ekiz.is", "2023-01-01", "2023-08-18", quote.Daily, true)
 	// fmt.Print(spy.CSV())
@@ -47,7 +30,7 @@ func main() {
 	// AutoMigrate for player table
 	database.AutoMigrate(&models.Stock{})
 
-	stocks, _ := GetStocks()
+	stocks, _ := utils.FindAllStocks()
 
 	db.CreateStocks(database, stocks)
 
@@ -63,13 +46,7 @@ func main() {
 	// 	fmt.Println("Stock:", stock.Code)
 	// }
 
-	// engine := html.New("./views", ".html")
-	// engine.Reload(true)       // Optional. Default: false
-	// engine.Debug(true)        // Optional. Default: false
-	// engine.Layout("embed")    // Optional. Default: "embed"
-	// engine.Delims("{{", "}}") // Optional. Default: engine delimiters
-
-	engine := django.New("./views", ".django")
+	engine := django.New("./web/views", ".django")
 
 	// AddFunc adds a function to the template's global function map.
 	engine.AddFunc("greet", func(name string) string {

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+{% include "partials/header.django" %}
+{% include "partials/navbar.django" %}
+
+{% comment %} <h1>{{ Title }}</h1> {% endcomment %}
+<body>
+
+<div class="container mx-auto">
+    <div class="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+        <table class="table-auto text-sm">
+            <thead>
+                <tr class="text-sm leading-normal">
+                    <th class="py-2 px-4 bg-grey-lightest font-bold uppercase text-sm text-grey-light border-b border-grey-light">Code</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for stock in stocks %}
+                    <tr class="hover:bg-grey-lighter">
+                        <td class="py-2 px-4 border-b border-grey-light">{{ stock.Code }}</td>
+                    </tr>
+                {% endfor %} 
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% include "partials/footer.django" %}
+</body>
+
+</html>
