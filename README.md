@@ -1,7 +1,7 @@
 # go-bist-app
 Go Bist App is an application to view bist stocks and your portfolio. It also includes go-bist-api. The application use the api and shows some metrics and details in graphical user interface.
 
-# Done
+# Done
 - Docker compose file was written for MySQL and Adminer.
 - Environment file was written.
 - Dockerfile was written for the application.
@@ -14,7 +14,7 @@ Go Bist App is an application to view bist stocks and your portfolio. It also in
 - Some routes and endpoints will be designed.
 - UI will be designed and implemented.
 
-# Resources
+# Resources
 - https://github.com/gofiber/fiber
 - https://github.com/gofiber/template
 - https://github.com/gofiber/awesome-fiber
