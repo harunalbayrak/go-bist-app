@@ -1,0 +1,8 @@
+{% include "partials/header.django" %}
+{% comment %} <h1>{{ Title }}</h1> {% endcomment %}
+<ul>
+{% for stock in stocks %}
+    <li>{{ stock.Code }}</li>
+{% endfor %}
+</ul>
+{% include "partials/footer.django" %}

@@ -1,0 +1,22 @@
+version: '3.7'
+services:
+  mysql_db_container:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password --init-file /data/application/init.sql
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: test
+    ports:
+      - 4000:3306
+    volumes:
+      - ./init.sql:/data/application/init.sql
+      - mysql_db_data_container:/var/lib/mysql
+  adminer_container:
+    image: adminer:latest
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql_db_container
+    ports:
+      - 8085:8080
+
+volumes:
+  mysql_db_data_container:
