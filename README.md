@@ -7,6 +7,8 @@ Go Bist App is an application to view bist stocks and your portfolio. It also in
 - Gorm
 
 # Done
+- Telegram entegration was completed.
+- Scheduler was added.
 - Docker compose file was written for MySQL and Adminer.
 - Environment file was written.
 - Dockerfile was written for the application.
@@ -16,6 +18,7 @@ Go Bist App is an application to view bist stocks and your portfolio. It also in
 - All bist stocks are getting from some websites.
 
 # Todo
+- Alarm scenerios will be designed and added. (RSI, 1m Change, etc.)
 - Some routes and endpoints will be designed.
 - UI will be designed and implemented. (Wireframe)
 - Models will be designed.
@@ -23,7 +26,6 @@ Go Bist App is an application to view bist stocks and your portfolio. It also in
 - Swagger entegration will be made.
 - CronJob function will be designed and implemented.
 - Indicators will be added.
-- Telegram entegration.
 - Twitter entegration.
 
 # Resources
