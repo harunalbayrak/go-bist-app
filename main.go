@@ -38,6 +38,11 @@ func main() {
 
 	getdb, _ := db.GetAllStocks(database)
 
+	for _, stock := range getdb {
+		yahooChart, _ := stock.GetYahooChart("1d", "5d")
+		fmt.Println("Stock:", yahooChart.Chart.Result[0].Meta.Symbol, "=", yahooChart.Chart.Result[0].Meta.RegularMarketPrice)
+	}
+
 	fmt.Println(getdb)
 
 	// getChart("EKIZ.IS", "1d", "100d")
