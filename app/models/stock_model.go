@@ -6,6 +6,8 @@ import (
 	"io/ioutil"
 	"net/http"
 	"os"
+
+	"github.com/harunalbayrak/go-finance/pkg/yahoo"
 )
 
 type Stock struct {
@@ -28,20 +30,36 @@ func (stock *Stock) GetYahooChart(interval string, totalRange string) (*YahooCha
 		os.Exit(1)
 	}
 
-	// fmt.Printf("client: got response!\n")
-	// fmt.Printf("client: status code: %d\n", res.StatusCode)
-
 	resBody, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		fmt.Printf("client: could not read response body: %s\n", err)
 		os.Exit(1)
 	}
-	// fmt.Printf("client: response body: %s\n", resBody)
 
 	var yahooModel YahooChart
 	json.Unmarshal(resBody, &yahooModel)
 
-	// fmt.Println(yahooModel)
+	return &yahooModel, err
+}
 
-	return &yahooModel, nil
+func (stock *Stock) GetYahooQuoteResponse(cookie *http.Cookie, crumb string) (*YahooQuoteResponse, error) {
+	baseURL := "https://query2.finance.yahoo.com/v7/finance"
+	userAgentKey := "User-Agent"
+	userAgentValue := "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.36"
+
+	requestURL := fmt.Sprintf("%s/quote?symbols=%s.is&crumb=%s", baseURL, stock.Code, crumb)
+
+	req, err := http.NewRequest("GET", requestURL, nil)
+	req.Header.Set(userAgentKey, userAgentValue)
+	req.AddCookie(&http.Cookie{
+		Name: cookie.Name, Value: cookie.Value, MaxAge: 60,
+	})
+	req.Header.Set("Accept", "application/json")
+
+	resBody, err := yahoo.GetRequestBody(req)
+
+	var yahooQuoteResponse YahooQuoteResponse
+	json.Unmarshal(resBody, &yahooQuoteResponse)
+
+	return &yahooQuoteResponse, err
 }

@@ -16,7 +16,7 @@ func GetAllStocks(c *fiber.Ctx) error {
 	// 	})
 	// }
 
-	database := db.CreateDB()
+	database, _ := db.CreateDB()
 
 	// Get all books.
 	stocks, err := db.GetAllStocks(database)

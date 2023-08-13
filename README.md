@@ -32,6 +32,7 @@ Go Bist App is an application to view bist stocks and your portfolio. It also in
 - https://github.com/gofiber/awesome-fiber
 - https://dev.to/koddr/build-a-restful-api-on-go-fiber-postgresql-jwt-and-swagger-docs-in-isolated-docker-containers-475j
 - https://github.com/koddr/tutorial-go-fiber-rest-api
-- https://github.com/tompston/gomakeme/
+- https://github.com/tompston/gomakeme
+- https://github.com/mop-tracker/mop
 - Yahoo Finance API
 - Milliyet
